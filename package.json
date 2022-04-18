@@ -1,6 +1,6 @@
 {
   "name": "ha-template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tiny (only 4K) lit component for rendering templates in Home Assistant custom cards",
   "main": "dist/index.js",
   "scripts": {
