@@ -1,0 +1,64 @@
+{
+  "name": "ha-template",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "rollup -c --watch",
+    "build": "rollup -c",
+    "lint": "eslint *.js --ignore-path .gitignore",
+    "lint:fix": "eslint --fix src",
+    "format": "prettier --write . --ignore-path .gitignore",
+    "test": "npm run lint && npm run build"
+  },
+  "keywords": [
+    "home-assistant",
+    "homeassistant",
+    "template",
+    "component",
+    "custom-cards",
+    "lovelace",
+    "lit"
+  ],
+  "author": "Denys Dovhan <denysdovhan@gmail.com> (http://denysdovhan.com/)",
+  "license": "MIT",
+  "peerDependencies": {
+    "lit": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@semantic-release/git": "^10.0.1",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.8",
+    "prettier": "^2.6.2",
+    "rollup": "^2.70.2",
+    "rollup-plugin-minify-html-literals": "^1.2.6",
+    "rollup-plugin-terser": "^7.0.2",
+    "semantic-release": "^19.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix",
+    "*": "prettier --write --ignore-unknown"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ]
+  }
+}
