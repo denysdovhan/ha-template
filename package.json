@@ -22,6 +22,9 @@
   ],
   "author": "Denys Dovhan <denysdovhan@gmail.com> (http://denysdovhan.com/)",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "lit": "^2.0.0"
   },
