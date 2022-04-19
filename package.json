@@ -6,6 +6,7 @@
   "scripts": {
     "start": "rollup -c --watch",
     "build": "rollup -c",
+    "size": "size-limit",
     "lint": "eslint *.js --ignore-path .gitignore",
     "lint:fix": "eslint --fix src",
     "format": "prettier --write . --ignore-path .gitignore",
@@ -32,6 +33,7 @@
     "@babel/core": "^7.17.9",
     "@rollup/plugin-babel": "^5.3.1",
     "@semantic-release/git": "^10.0.1",
+    "@size-limit/preset-small-lib": "^7.0.8",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
