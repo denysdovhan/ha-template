@@ -13,7 +13,7 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.1
 
       - name: ⬇️ Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: 🗜 Size Limit
         uses: andresz1/size-limit-action@v1.6.1
