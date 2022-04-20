@@ -65,5 +65,7 @@ export class HATemplate extends LitElement {
 }
 
 export default function register(component = 'ha-template') {
-  customElements.define(component, HATemplate);
+  if (!customElements.get(component)) {
+    customElements.define(component, HATemplate);
+  }
 }
