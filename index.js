@@ -56,11 +56,7 @@ export class HATemplate extends LitElement {
   }
 
   render() {
-    if (this.value) {
-      return this.value;
-    }
-
-    return nothing;
+    return this.value ?? nothing;
   }
 }
 
