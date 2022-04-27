@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
     "@rollup/plugin-babel": "^5.3.1",
     "@semantic-release/git": "^10.0.1",
     "@size-limit/preset-small-lib": "^7.0.8",
@@ -47,6 +48,10 @@
     "semantic-release": "^19.0.2",
     "size-limit": "^7.0.8"
   },
+  "browserslist": [
+    "last 2 versions",
+    "not dead"
+  ],
   "lint-staged": {
     "*.js": "eslint --fix",
     "*": "prettier --write --ignore-unknown"
