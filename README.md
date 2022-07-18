@@ -7,7 +7,7 @@
 [![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
 [![Twitter][twitter-image]][twitter-url]
 
-> A tiny (<2kB) lit component for rendering templates in [Home Assistant][home-assistant] custom cards
+> A tiny (<5kB) lit component for rendering templates in [Home Assistant][home-assistant] custom cards
 
 `ha-template` is a tiny Lit component that conveniently handles rendering templates in [Home Assistant][home-assistant] custom cards. It subscribes to template updates, automatically rerenders them along with the template value and displays a fallback value if template is not available.
 
