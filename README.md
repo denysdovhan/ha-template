@@ -1,6 +1,6 @@
 [![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua/)
 
-# HATemplate
+# Home Assistant Template Component
 
 [![npm version][npm-image]][npm-url]
 [![Patreon][patreon-image]][patreon-url]

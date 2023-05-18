@@ -1,16 +1,21 @@
+import { HomeAssistant } from 'custom-card-helpers';
 import { LitElement, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
+type UnsubscribePromise = Promise<() => Promise<void>>;
+
+@customElement('ha-template')
 export class HATemplate extends LitElement {
-  static get properties() {
-    return {
-      hass: Object,
-      template: String,
-      variables: Object,
-      value: String,
-    };
-  }
+  @property() public hass!: HomeAssistant;
 
-  connectedCallback() {
+  @property() public template: string = '';
+  @property() public variables: Record<string, any> = {};
+  @property() public value: string | null = null;
+
+  @property({ attribute: false })
+  private unsubscribePromise: UnsubscribePromise | null = null;
+
+  public connectedCallback() {
     super.connectedCallback();
 
     if (!this.hass) {
@@ -26,7 +31,9 @@ export class HATemplate extends LitElement {
       return;
     }
 
-    this.unsubscribePromise = this.hass.connection.subscribeMessage(
+    this.unsubscribePromise = this.hass.connection.subscribeMessage<{
+      result: string;
+    }>(
       (msg) => {
         this.value = msg.result;
       },
@@ -38,7 +45,7 @@ export class HATemplate extends LitElement {
     );
   }
 
-  async disconnectedCallback() {
+  public async disconnectedCallback() {
     super.disconnectedCallback();
 
     if (this.unsubscribePromise) {
@@ -46,7 +53,7 @@ export class HATemplate extends LitElement {
         const unsubscribe = await this.unsubscribePromise;
         this.unsubscribePromise = null;
         return unsubscribe();
-      } catch (err) {
+      } catch (err: any) {
         // We don't care when connection is closed.
         if (err.code !== 'not_found') {
           throw err;
@@ -55,7 +62,7 @@ export class HATemplate extends LitElement {
     }
   }
 
-  render() {
+  protected render(): string | typeof nothing {
     return this.value ?? nothing;
   }
 }
