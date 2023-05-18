@@ -15,7 +15,7 @@ export default {
   external: Object.keys(pkg.peerDependencies),
   plugins: [
     babel({
-      babelHelpers: 'bundled',
+      babelHelpers: 'runtime',
       exclude: 'node_modules/**',
     }),
     !IS_DEV && minifyLiterals(),
