@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "A tiny (<2kB) lit component for rendering templates in Home Assistant custom cards",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "rollup -c --watch",
     "build": "rollup -c",
