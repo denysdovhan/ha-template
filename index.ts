@@ -1,11 +1,10 @@
 import { HomeAssistant } from 'custom-card-helpers';
 import { LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 type UnsubscribePromise = Promise<() => Promise<void>>;
 type UnsubscribeError = Error & { code: string };
 
-@customElement('ha-template')
 export class HATemplate extends LitElement {
   @property() public hass!: HomeAssistant;
 
@@ -13,8 +12,7 @@ export class HATemplate extends LitElement {
   @property() public variables: Record<string, unknown> = {};
   @property() public value: string | null = null;
 
-  @property({ attribute: false })
-  private unsubscribePromise: UnsubscribePromise | null = null;
+  @state() private unsubscribePromise: UnsubscribePromise | null = null;
 
   public connectedCallback() {
     super.connectedCallback();
