@@ -1,7 +1,8 @@
 import { HomeAssistant } from 'custom-card-helpers';
-import { LitElement, nothing } from 'lit';
+import { LitElement, TemplateResult, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+type Template = TemplateResult | string | typeof nothing;
 type UnsubscribePromise = Promise<() => Promise<void>>;
 type UnsubscribeError = Error & { code: string };
 
@@ -61,7 +62,7 @@ export class HATemplate extends LitElement {
     }
   }
 
-  protected render(): string | typeof nothing {
+  protected render(): Template {
     return this.value ?? nothing;
   }
 }
