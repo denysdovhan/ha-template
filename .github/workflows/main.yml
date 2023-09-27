@@ -1,4 +1,4 @@
-name: Validate
+name: Main
 on:
   push:
   pull_request:
