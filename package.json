@@ -24,7 +24,11 @@
     "lovelace",
     "lit"
   ],
-  "author": "Denys Dovhan <denysdovhan@gmail.com> (http://denysdovhan.com/)",
+  "author": {
+    "name": "Denys Dovhan",
+    "email": "denysdovhan@gmail.com",
+    "url": "http://denysdovhan.com/"
+  },
   "license": "MIT",
   "files": [
     "dist"
