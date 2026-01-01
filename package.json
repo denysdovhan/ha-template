@@ -58,7 +58,7 @@
     "rollup-plugin-minify-html-literals-v3": "^1.2.6",
     "@rollup/plugin-terser": "^0.4.4",
     "rollup-plugin-typescript2": "^0.36.0",
-    "semantic-release": "^24.1.2",
+    "semantic-release": "^25.0.2",
     "size-limit": "^11.0.2",
     "typescript": "^5.0.4"
   },
