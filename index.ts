@@ -1,33 +1,80 @@
 import { HomeAssistant } from 'custom-card-helpers';
-import { LitElement, TemplateResult, nothing } from 'lit';
+import { LitElement, PropertyValues, nothing } from 'lit';
+import { notEqual } from '@lit/reactive-element';
 import { property, state } from 'lit/decorators.js';
 
-type Template = TemplateResult | string | typeof nothing;
-type UnsubscribePromise = Promise<() => Promise<void>>;
+type UnsubscribePromise = ReturnType<
+  HomeAssistant['connection']['subscribeMessage']
+>;
 type UnsubscribeError = Error & { code: string };
 
 export class HATemplate extends LitElement {
   @property() public hass!: HomeAssistant;
 
-  @property() public template = '';
-  @property() public variables: Record<string, unknown> = {};
-  @property() public value: string | null = null;
+  @property()
+  public template = '';
 
-  @state() private unsubscribePromise: UnsubscribePromise | null = null;
+  @property({ hasChanged: notEqual })
+  public variables: Record<string, unknown> = {};
+
+  @property()
+  public value: unknown = null;
+
+  @state()
+  private renderedValue: string | null = null;
+
+  private unsubscribePromise: UnsubscribePromise | null = null;
+  private subscriptionTask: Promise<void> = Promise.resolve();
 
   public connectedCallback() {
     super.connectedCallback();
+    this.queueSubscriptionRefresh();
+  }
 
-    if (!this.hass) {
-      console.warn('hass object is not provided');
+  protected updated(changedProperties: PropertyValues<this>) {
+    if (
+      changedProperties.has('hass') ||
+      changedProperties.has('template') ||
+      changedProperties.has('variables') ||
+      changedProperties.has('value')
+    ) {
+      this.queueSubscriptionRefresh();
+    }
+  }
+
+  public disconnectedCallback() {
+    this.queueSubscriptionRefresh();
+    super.disconnectedCallback();
+  }
+
+  protected render(): unknown {
+    return this.renderedValue ?? this.value ?? nothing;
+  }
+
+  private queueSubscriptionRefresh() {
+    this.subscriptionTask = this.subscriptionTask
+      .then(() => this.refreshSubscription())
+      .catch((err: unknown) => {
+        // Keep the task queue usable after an unexpected error.
+        console.error('ha-template: Failed to refresh subscription', err);
+      });
+  }
+
+  private async refreshSubscription() {
+    await this.unsubscribeTemplate();
+    this.renderedValue = null;
+
+    if (!this.isConnected) {
       return;
     }
 
-    if (this.unsubscribePromise) {
+    if (!this.hass) {
+      console.warn('ha-template: hass object is not provided');
       return;
     }
 
     if (!this.template) {
+      console.warn('ha-template: template is not provided');
       return;
     }
 
@@ -35,35 +82,33 @@ export class HATemplate extends LitElement {
       result: string;
     }>(
       (msg) => {
-        this.value = msg.result;
+        this.renderedValue = msg.result;
       },
       {
         type: 'render_template',
         template: this.template,
         variables: this.variables,
-      }
+      },
     );
   }
 
-  public async disconnectedCallback() {
-    super.disconnectedCallback();
+  private async unsubscribeTemplate() {
+    if (!this.unsubscribePromise) {
+      return;
+    }
 
-    if (this.unsubscribePromise) {
-      try {
-        const unsubscribe = await this.unsubscribePromise;
-        this.unsubscribePromise = null;
-        return unsubscribe();
-      } catch (err: unknown) {
-        // We don't care when connection is closed.
-        if ((err as UnsubscribeError).code !== 'not_found') {
-          throw err;
-        }
+    const unsubscribePromise = this.unsubscribePromise;
+    this.unsubscribePromise = null;
+
+    try {
+      const unsubscribe = await unsubscribePromise;
+      await Promise.resolve(unsubscribe());
+    } catch (err: unknown) {
+      // Home Assistant closes subscriptions when connection is gone.
+      if ((err as UnsubscribeError).code !== 'not_found') {
+        throw err;
       }
     }
-  }
-
-  protected render(): Template {
-    return this.value ?? nothing;
   }
 }
 

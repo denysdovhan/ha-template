@@ -3,13 +3,12 @@
 # Home Assistant Template Component
 
 [![npm version][npm-image]][npm-url]
-[![Patreon][patreon-image]][patreon-url]
 [![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
 [![Twitter][twitter-image]][twitter-url]
 
 > A tiny (<2kB) lit component for rendering templates in [Home Assistant][home-assistant] custom cards
 
-`ha-template` is a tiny Lit component that conveniently handles rendering templates in [Home Assistant][home-assistant] custom cards. It subscribes to template updates, automatically rerenders them along with the template value and displays a fallback value if template is not available.
+`ha-template` is a tiny Lit component that conveniently handles rendering templates in [Home Assistant][home-assistant] custom cards. It subscribes to template updates, rerenders when relevant inputs change, and displays a fallback value if template output is not available.
 
 ## Installing
 
@@ -37,7 +36,7 @@ yarn add ha-template
 
 Use `ha-template` in your card by importing and registering it as a custom component.
 
-Pass `hass` object, `template` string and optional falback `value`. `ha-template` will handle template rendering and updating automatically.
+Pass `hass` object, `template` string and optional fallback `value`. `ha-template` will handle template rendering and updating automatically.
 
 ```js
 import registerTemplates from 'ha-template';
@@ -64,15 +63,16 @@ class MyCustomCard extends LitElement {
 
     // Use <ha-template> in your card.
     //
-    // Pass hass object, template and a fallback value.
-    // Fallback value will replace with the result of rendered template.
-    // If template is not defined, fallback value will be used.
+    // Pass hass object, template and fallback value.
+    // If template is not defined or can not be rendered, fallback value is shown.
+    // If you need `value` in the template, pass it explicitly via `variables`.
     return html`
       <ha-card>
         <ha-template
           hass=${this.hass}
           template=${value_template}
           value=${fallback}
+          variables=${{ foo: 'bar' }}
         ></ha-template>
       </ha-card>
     `;
@@ -94,14 +94,16 @@ customElements.define(component, HATemplate);
 `ha-template` has two exports:
 
 2. `HATemplate` - a custom lit-component that provides a convenient way to render templates. You can import it and register it as a custom element.
-1. `default` - a function that registers `HATemplate` as a `ha-tempalte` custom element, by default. You can pass custom component name, if you want so.
+1. `default` - a function that registers `HATemplate` as a `ha-template` custom element, by default. You can pass custom component name, if you want so.
 
 `HATemplate` component accepts these properties:
 
 1. `hass` - an object of Home Assistant connection.
 2. `template` - a string that contains a [Jinja2](https://palletsprojects.com/p/jinja) template.
-3. `value` - a fallback value that will be used if template is not defined. Will be replaced by template result.
+3. `value` - an input fallback value used when template is not defined or can not be rendered.
 4. `variables` - an object of custom variables to be used within the template.
+
+`value` is rendered as fallback when template is empty, unavailable, or can not be rendered.
 
 ## Development
 
