@@ -3,26 +3,25 @@
 # Home Assistant Template Component
 
 [![npm version][npm-image]][npm-url]
+[![GitHub Sponsors][gh-sponsors-image]][gh-sponsors-url]
 [![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
 [![Twitter][twitter-image]][twitter-url]
 
+> [!NOTE]
 > A tiny (<2kB) lit component for rendering templates in [Home Assistant][home-assistant] custom cards
 
 `ha-template` is a tiny Lit component that conveniently handles rendering templates in [Home Assistant][home-assistant] custom cards. It subscribes to template updates, rerenders when relevant inputs change, and displays a fallback value if template output is not available.
 
+## Sponsorship
+
+Your generosity will help me maintain and develop more projects like this one.
+
+- 💖 [Sponsor on GitHub][gh-sponsors-url]
+- ☕️ [Buy Me A Coffee][buymeacoffee-url]
+- Bitcoin: `bc1q7lfx6de8jrqt8mcds974l6nrsguhd6u30c6sg8`
+- Ethereum: `0x6aF39C917359897ae6969Ad682C14110afe1a0a1`
+
 ## Installing
-
-**💡 Tip:** If you like this project, consider becoming a patron:
-
-<a href="https://patreon.com/denysdovhan">
-  <img alt="Become a patron" src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="150px">
-</a>
-
-or just buy me a cup of ☕️ or 🥤:
-
-<a href="https://www.buymeacoffee.com/denysdovhan" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="150px">
-</a>
 
 Install this utility as any other dependency:
 
@@ -119,8 +118,8 @@ MIT © [Denys Dovhan][denysdovhan]
 
 [npm-url]: https://npmjs.org/package/ha-template
 [npm-image]: https://img.shields.io/npm/v/ha-template.svg?style=flat-square
-[patreon-url]: https://patreon.com/denysdovhan
-[patreon-image]: https://img.shields.io/badge/support-patreon-F96854.svg?style=flat-square
+[gh-sponsors-url]: https://github.com/sponsors/denysdovhan
+[gh-sponsors-image]: https://img.shields.io/github/sponsors/denysdovhan?style=flat-square
 [buymeacoffee-url]: https://patreon.com/denysdovhan
 [buymeacoffee-image]: https://img.shields.io/badge/support-buymeacoffee-222222.svg?style=flat-square
 [twitter-url]: https://twitter.com/denysdovhan
