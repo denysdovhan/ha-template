@@ -51,7 +51,7 @@
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@semantic-release/git": "^10.0.1",
-    "@size-limit/preset-small-lib": "^11.0.2",
+    "@size-limit/preset-small-lib": "^12.1.0",
     "@typescript-eslint/eslint-plugin": "^8.51.0",
     "@typescript-eslint/parser": "^8.51.0",
     "eslint": "^9.39.2",
